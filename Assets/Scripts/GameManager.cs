@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,10 @@ public class GameManager : MonoBehaviour
     private Spawner spawner;
 
     public Text scoreText;
+    public TextMeshProUGUI highScoreText;
     public GameObject playButton;
     public GameObject gameOver;
+    public GameObject highScoreObject;
     public int score { get; private set; }
 
     private void Awake()
@@ -21,6 +24,10 @@ public class GameManager : MonoBehaviour
         Pause();
     }
 
+    private void Start()
+    {
+        UpdateHighScoreText();
+    }
     public void Play()
     {
         score = 0;
@@ -28,6 +35,7 @@ public class GameManager : MonoBehaviour
 
         playButton.SetActive(false);
         gameOver.SetActive(false);
+        highScoreObject.SetActive(false);
 
         Time.timeScale = 1f;
         player.enabled = true;
@@ -43,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         playButton.SetActive(true);
         gameOver.SetActive(true);
+        highScoreObject.SetActive(true);
 
         Pause();
     }
@@ -57,6 +66,18 @@ public class GameManager : MonoBehaviour
     {
         score++;
         scoreText.text = score.ToString();
+        CheckHighScore();
+    } 
+    
+    void CheckHighScore()
+    {
+        if (score > PlayerPrefs.GetInt("HighScore",0)) 
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+        }
     }
-
+    void UpdateHighScoreText()
+    {
+        highScoreText.text = $"HighScore: {PlayerPrefs.GetInt("HighScore", 0)}";
+    }
 }
