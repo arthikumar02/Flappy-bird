@@ -54,6 +54,7 @@ public class GameManager : MonoBehaviour
         highScoreObject.SetActive(true);
 
         Pause();
+
     }
 
     public void Pause()

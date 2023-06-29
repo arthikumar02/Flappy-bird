@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     private Vector3 direction;
 
+    public AudioSource audioSource;
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -61,12 +62,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
-        {
+        if (other.gameObject.CompareTag("Obstacle")) {
             FindObjectOfType<GameManager>().GameOver();
-        }
-        if (other.gameObject.CompareTag("Scoring")) {
+            audioSource.Play();
+        } else if (other.gameObject.CompareTag("Scoring")) {
             FindObjectOfType<GameManager>().IncreaseScore();
+
         }
     }
 
