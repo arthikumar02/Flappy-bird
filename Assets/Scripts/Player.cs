@@ -61,9 +61,11 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Obstacle")) {
+        if (other.gameObject.CompareTag("Obstacle"))
+        {
             FindObjectOfType<GameManager>().GameOver();
-        } else if (other.gameObject.CompareTag("Scoring")) {
+        }
+        if (other.gameObject.CompareTag("Scoring")) {
             FindObjectOfType<GameManager>().IncreaseScore();
         }
     }
