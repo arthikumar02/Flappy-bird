@@ -12,7 +12,10 @@ public class Player : MonoBehaviour
 
     private Vector3 direction;
 
-    public AudioSource audioSource;
+    public AudioSource audioSourceOfDie;
+
+    public AudioSource audioSourceOfWing;
+
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -35,6 +38,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
             direction = Vector3.up * strength;
+            audioSourceOfWing.Play();
         }
 
         // Apply gravity and update the position
@@ -64,7 +68,7 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Obstacle")) {
             FindObjectOfType<GameManager>().GameOver();
-            audioSource.Play();
+            audioSourceOfDie.Play();
         } else if (other.gameObject.CompareTag("Scoring")) {
             FindObjectOfType<GameManager>().IncreaseScore();
 
